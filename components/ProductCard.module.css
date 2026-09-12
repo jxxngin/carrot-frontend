@@ -25,3 +25,19 @@
   font-size: 18px;
   font-weight: 700;
 }
+
+.link {
+  display: block;
+  color: inherit;
+  text-decoration: none;
+  border-radius: 16px;
+}
+
+.link:hover .card {
+  border-color: #c94a12;
+}
+
+.link:focus-visible {
+  outline: 3px solid #c94a12;
+  outline-offset: 3px;
+}
