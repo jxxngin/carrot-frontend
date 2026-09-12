@@ -69,3 +69,24 @@
     grid-template-columns: 1fr;
   }
 }
+
+.retryButton {
+  margin-top: 16px;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 8px;
+  background-color: #c94a12;
+  color: white;
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.retryButton:hover {
+  background-color: #a83e0f;
+}
+
+.retryButton:focus-visible {
+  outline: 3px solid #c94a12;
+  outline-offset: 3px;
+}

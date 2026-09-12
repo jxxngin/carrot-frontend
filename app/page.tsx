@@ -2,28 +2,23 @@ import ProductCard from "@/components/ProductCard";
 import type { Product } from "@/types/product";
 import styles from "./page.module.css";
 
-const products: Product[] = [
-  {
-    id: 1,
-    title: "원목 책상",
-    price: 25000,
-    location: "역삼동",
-  },
-  {
-    id: 2,
-    title: "무선 키보드",
-    price: 15000,
-    location: "잠실동",
-  },
-  {
-    id: 3,
-    title: "책꽂이 나눔",
-    price: 0,
-    location: "서초동",
-  },
-];
+export default async function Home() {
+  const apiBaseUrl = process.env.API_BASE_URL;
 
-export default function Home() {
+  if (!apiBaseUrl) {
+    throw new Error("API_BASE_URL 환경 변수가 설정되지 않았습니다.");
+  }
+
+  const response = await fetch(`${apiBaseUrl}/api/products`, {
+    cache: "no-store",
+  });
+
+  if (!response.ok) {
+    throw new Error(`상품 목록 조회에 실패했습니다: ${response.status}`);
+  }
+
+  const products: Product[] = await response.json();
+
   return (
     <>
       <header className={styles.header}>
@@ -39,11 +34,15 @@ export default function Home() {
           <p>총 {products.length}개</p>
         </div>
 
-        <div className={styles.grid}>
-          {products.map((product) => (
-            <ProductCard key={product.id} product={product} />
-          ))}
-        </div>
+        {products.length === 0 ? (
+          <p>아직 등록된 상품이 없습니다.</p>
+        ) : (
+          <div className={styles.grid}>
+            {products.map((product) => (
+              <ProductCard key={product.id} product={product} />
+            ))}
+          </div>
+        )}
       </main>
     </>
   );
