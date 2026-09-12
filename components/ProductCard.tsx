@@ -11,9 +11,7 @@ export default function ProductCard({ product }: ProductCardProps) {
       <p className={styles.location}>{product.location}</p>
       <h2 className={styles.title}>{product.title}</h2>
       <p className={styles.price}>
-        {product.price === 0
-          ? "나눔"
-          : `${product.price.toLocaleString("ko-KR")}원`}
+        {product.price === 0 ? "나눔" : `${product.price.toLocaleString("ko-KR")}원`}
       </p>
     </article>
   );
