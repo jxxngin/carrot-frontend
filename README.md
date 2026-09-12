@@ -1,36 +1,52 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Carrot Frontend
 
-## Getting Started
+당근의 중고거래 화면을 참고하여 React와 Next.js를 복습하는
+학습용 프론트엔드 프로젝트입니다.
 
-First, run the development server:
+Java Spring Boot로 만든 Carrot Backend와 연결합니다.
+
+## 개발 환경
+
+- Node.js 24
+- npm
+- Next.js 16.3.5 / App Router
+- React / TypeScript
+- CSS / CSS Modules
+- ESLint
+
+정확한 의존성 버전은 package.json과 package-lock.json을 참고합니다.
+
+## 실행 방법
+
+처음 코드를 내려받은 경우:
+
+```bash
+npm ci
+```
+
+개발 서버 실행:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+접속 주소: http://localhost:3000
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 주요 구조
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- src/app/page.tsx: 첫 화면
+- src/app/layout.tsx: 공통 레이아웃
+- src/app/globals.css: 전역 스타일
+- public/: 정적 파일
 
-## Learn More
+## 현재 진행 상태
 
-To learn more about Next.js, take a look at the following resources:
+- Next.js 프로젝트 생성 및 개발 서버 실행 완료
+- 상품 화면과 백엔드 API 연결은 아직 구현하지 않았습니다.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 구현 예정
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- 상품 카드와 목록 화면
+- Java 백엔드 상품 목록 API 연결
+- 로딩·오류·빈 목록 처리
+- 이후 Vercel 배포
