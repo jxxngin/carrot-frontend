@@ -1,30 +1,60 @@
 # Carrot Frontend
 
-당근의 중고거래 화면을 참고하여 React와 Next.js를 복습하는
-학습용 프론트엔드 프로젝트입니다.
+당근의 중고거래 화면을 참고하여 React와 Next.js를 학습하는
+프론트엔드 프로젝트입니다.
 
-Java Spring Boot로 만든 Carrot Backend와 연결합니다.
+Java Spring Boot로 만든 Carrot Backend와 연결하여
+상품 목록과 상세 정보를 표시합니다.
 
 ## 개발 환경
 
-- Node.js 24
-- npm
+- Node.js 24 / npm
 - Next.js 16.3.5 / App Router
 - React / TypeScript
 - CSS / CSS Modules
-- ESLint
+- ESLint / Prettier
+- Visual Studio Code
 
 정확한 의존성 버전은 package.json과 package-lock.json을 참고합니다.
 
+## 구현 기능
+
+- 상품 목록과 상품 카드
+- 상품 상세 조회
+- 가격 표시 및 0원 상품의 나눔 표시
+- 로딩·오류·빈 목록 안내
+- 조회 실패 시 재시도
+- 잘못된 상품 ID 및 존재하지 않는 상품 안내
+- 반응형 상품 목록
+
 ## 실행 방법
 
-처음 코드를 내려받은 경우:
+### 1. 의존성 설치
 
 ```bash
 npm ci
 ```
 
-개발 서버 실행:
+### 2. 환경 변수 설정
+
+처음 실행하는 경우 예제 파일을 복사합니다.
+
+```bash
+cp .env.example .env.local
+```
+
+.env.local의 백엔드 주소를 확인합니다.
+
+```dotenv
+API_BASE_URL=http://localhost:8080
+```
+
+### 3. 백엔드 실행
+
+Carrot Backend를 먼저 실행합니다.
+기본 주소는 http://localhost:8080 입니다.
+
+### 4. 개발 서버 실행
 
 ```bash
 npm run dev
@@ -32,21 +62,69 @@ npm run dev
 
 접속 주소: http://localhost:3000
 
+## 코드 검사
+
+```bash
+npm run lint
+npx tsc --noEmit
+```
+
+## 배포용 빌드 및 실행
+
+```bash
+npm run build
+npm run start
+```
+
+기본 포트가 같으므로 실행 중인 개발 서버를 종료한 뒤 실행합니다.
+상품을 조회하려면 백엔드가 실행 중이어야 합니다.
+
 ## 주요 구조
 
-- src/app/page.tsx: 첫 화면
-- src/app/layout.tsx: 공통 레이아웃
-- src/app/globals.css: 전역 스타일
+- app/page.tsx: 상품 목록
+- app/products/[id]/page.tsx: 상품 상세
+- app/products/[id]/not-found.tsx: 상품 없음 안내
+- app/loading.tsx: 공통 로딩 화면
+- app/error.tsx: 공통 오류 및 재시도 화면
+- app/layout.tsx: 공통 레이아웃
+- app/globals.css: 전역 스타일
+- components/ProductCard.tsx: 상품 카드
+- types/product.ts: 상품 응답 타입
 - public/: 정적 파일
 
-## 현재 진행 상태
+## API 연결 방식
 
-- Next.js 프로젝트 생성 및 개발 서버 실행 완료
-- 상품 화면과 백엔드 API 연결은 아직 구현하지 않았습니다.
+서버 컴포넌트에서 Spring Boot API를 호출합니다.
 
-## 구현 예정
+브라우저 → Next.js 서버 → Spring Boot → DB
 
-- 상품 카드와 목록 화면
-- Java 백엔드 상품 목록 API 연결
-- 로딩·오류·빈 목록 처리
-- 이후 Vercel 배포
+- GET /api/products: 상품 목록 조회
+- GET /api/products/{id}: 상품 상세 조회
+
+API_BASE_URL은 Next.js 서버에서 사용하는 환경 변수입니다.
+현재 상품 조회 요청에는 cache: "no-store"를 사용합니다.
+
+## 코드 스타일
+
+- .editorconfig: 기본 편집 규칙
+- .prettierrc.json: Prettier 포맷 규칙
+- .vscode/settings.json: 프로젝트 편집기 설정
+- .vscode/extensions.json: 권장 확장 목록
+- 저장 시 코드 포맷 및 import 정리
+- ESLint와 TypeScript를 통한 코드 검사
+
+## 확인한 동작
+
+- 실제 DB 상품의 목록 및 상세 표시
+- 로딩 안내
+- 백엔드 종료 시 오류 안내 및 재시도 후 복구
+- 잘못된 ID와 존재하지 않는 상품 안내
+- 배포용 빌드 및 실행
+
+## 향후 계획
+
+- 상품 등록 화면
+- 상품 수정 및 삭제 연결
+- Vercel 배포
+
+배포 환경의 API_BASE_URL에는 배포된 백엔드 주소를 설정합니다.
