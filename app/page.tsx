@@ -1,5 +1,6 @@
 import ProductCard from "@/components/ProductCard";
 import type { Product } from "@/types/product";
+import Link from "next/link";
 import styles from "./page.module.css";
 
 export default async function Home() {
@@ -32,6 +33,7 @@ export default async function Home() {
         <div className={styles.heading}>
           <h1>중고거래 상품</h1>
           <p>총 {products.length}개</p>
+          <Link href="/products/new">상품 등록</Link>
         </div>
 
         {products.length === 0 ? (

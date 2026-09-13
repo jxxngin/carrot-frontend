@@ -1,0 +1,56 @@
+.main {
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 40px 20px;
+}
+
+.form {
+  display: grid;
+  gap: 24px;
+  margin-top: 24px;
+}
+
+.field {
+  display: grid;
+  gap: 8px;
+}
+
+.field label {
+  font-weight: 600;
+}
+
+.field input {
+  width: 100%;
+  min-width: 0;
+  padding: 12px;
+  border: 1px solid #9ca3af;
+  border-radius: 8px;
+  background: white;
+  color: #212124;
+  font: inherit;
+}
+
+.field input:focus-visible {
+  outline: 2px solid #c94a12;
+  outline-offset: 2px;
+}
+
+.field small {
+  color: #606770;
+}
+
+.submitButton {
+  padding: 14px;
+  border: none;
+  border-radius: 8px;
+  background: #c94a12;
+  color: white;
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.submitButton:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
