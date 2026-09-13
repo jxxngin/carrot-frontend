@@ -54,3 +54,18 @@
   opacity: 0.6;
   cursor: not-allowed;
 }
+
+.error {
+  margin: 0;
+  color: #b42318;
+  font-size: 14px;
+}
+
+.field input[aria-invalid="true"] {
+  border-color: #b42318;
+}
+
+.submitButton:focus-visible {
+  outline: 3px solid #c94a12;
+  outline-offset: 3px;
+}
