@@ -4,7 +4,7 @@
 프론트엔드 프로젝트입니다.
 
 Java Spring Boot로 만든 Carrot Backend와 연결하여
-상품 목록과 상세 정보를 표시합니다.
+상품 등록·조회·수정·삭제 기능을 제공합니다.
 
 ## 개발 환경
 
@@ -30,6 +30,11 @@ Java Spring Boot로 만든 Carrot Backend와 연결하여
 - 등록 중 버튼 비활성화
 - 백엔드 검증 오류를 입력란별로 표시
 - 등록 실패 시 입력값 유지
+- 기존 상품 정보를 불러오는 수정 폼
+- 상품 수정 및 상세·목록 갱신
+- 수정 실패 시 입력값 유지와 오류 안내
+- 삭제 전 확인 및 처리 중 버튼 비활성화
+- 삭제 성공 또는 이미 삭제된 상품 처리 후 목록 이동
 
 ## 실행 방법
 
@@ -95,18 +100,30 @@ npm run start
 - components/ProductCard.tsx: 상품 카드
 - types/product.ts: 상품 응답 타입
 - public/: 정적 파일
+- app/products/new/page.tsx: 상품 등록 폼
+- app/products/new/actions.ts: 상품 등록 서버 함수
+- app/products/[id]/edit/page.tsx: 수정할 상품 조회
+- app/products/[id]/edit/EditProductForm.tsx: 상품 수정 폼
+- app/products/[id]/edit/actions.ts: 상품 수정 서버 함수
+- app/products/[id]/DeleteProductButton.tsx: 삭제 확인 버튼
+- app/products/[id]/delete-actions.ts: 상품 삭제 서버 함수
 
 ## API 연결 방식
 
-서버 컴포넌트에서 Spring Boot API를 호출합니다.
+조회는 서버 컴포넌트에서, 등록·수정·삭제는 Server Actions에서
+Spring Boot API를 호출합니다.
 
 브라우저 → Next.js 서버 → Spring Boot → DB
 
 - GET /api/products: 상품 목록 조회
 - GET /api/products/{id}: 상품 상세 조회
+- POST /api/products: 상품 등록
+- PUT /api/products/{id}: 상품 수정
+- DELETE /api/products/{id}: 상품 삭제
 
 API_BASE_URL은 Next.js 서버에서 사용하는 환경 변수입니다.
-현재 상품 조회 요청에는 cache: "no-store"를 사용합니다.
+상품 조회 요청에는 cache: "no-store"를 사용합니다.
+등록·수정·삭제 후에는 관련 경로를 revalidatePath로 갱신합니다.
 
 ## 코드 스타일
 
@@ -124,10 +141,15 @@ API_BASE_URL은 Next.js 서버에서 사용하는 환경 변수입니다.
 - 백엔드 종료 시 오류 안내 및 재시도 후 복구
 - 잘못된 ID와 존재하지 않는 상품 안내
 - 배포용 빌드 및 실행
+- 등록·수정 후 상세와 목록에 반영
+- 입력 검증 실패 및 서버 연결 실패 시 안내
+- 등록·수정 실패 시 입력값 유지
+- 삭제 취소 시 상품 유지
+- 삭제 성공(204) 및 이미 삭제된 상품(404)의 목록 이동
+- 일반 Chrome에서 배포용 실행으로 CRUD 흐름 확인
 
 ## 향후 계획
 
-- 상품 수정 및 삭제 연결
 - Vercel 배포
 
 배포 환경의 API_BASE_URL에는 배포된 백엔드 주소를 설정합니다.
