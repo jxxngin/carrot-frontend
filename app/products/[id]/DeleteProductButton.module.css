@@ -1,0 +1,34 @@
+.form {
+  margin-top: 24px;
+}
+
+.button {
+  padding: 10px 16px;
+  border: 1px solid #b42318;
+  border-radius: 8px;
+  background: white;
+  color: #b42318;
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.button:hover:not(:disabled) {
+  background: #fff1f0;
+}
+
+.button:focus-visible {
+  outline: 3px solid #b42318;
+  outline-offset: 3px;
+}
+
+.button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.error {
+  margin: 12px 0 0;
+  color: #b42318;
+  font-size: 14px;
+}

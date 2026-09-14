@@ -2,6 +2,7 @@ import type { Product } from "@/types/product";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import styles from "../../page.module.css";
+import DeleteProductButton from "./DeleteProductButton";
 
 type ProductDetailPageProps = {
   params: Promise<{ id: string }>;
@@ -41,6 +42,7 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
       <p>{product.location}</p>
       <p>{product.price === 0 ? "나눔" : `${product.price.toLocaleString("ko-KR")}원`}</p>
       <Link href={`/products/${product.id}/edit`}>상품 수정</Link>
+      <DeleteProductButton productId={product.id} />
     </main>
   );
 }
