@@ -1,13 +1,14 @@
 import type { Product } from "@/types/product";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import styles from "../../page.module.css";
+import EditProductForm from "./EditProductForm";
+import styles from "./page.module.css";
 
-type ProductDetailPageProps = {
+type EditProductPageProps = {
   params: Promise<{ id: string }>;
 };
 
-export default async function ProductDetailPage({ params }: ProductDetailPageProps) {
+export default async function EditProductPage({ params }: EditProductPageProps) {
   const { id } = await params;
 
   if (!/^[1-9]\d*$/.test(id)) {
@@ -29,18 +30,16 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
   }
 
   if (!response.ok) {
-    throw new Error(`상품 상세 조회에 실패했습니다: ${response.status}`);
+    throw new Error(`상품 조회에 실패했습니다: ${response.status}`);
   }
 
   const product: Product = await response.json();
 
   return (
     <main className={styles.main}>
-      <Link href="/">← 상품 목록으로</Link>
-      <h1>{product.title}</h1>
-      <p>{product.location}</p>
-      <p>{product.price === 0 ? "나눔" : `${product.price.toLocaleString("ko-KR")}원`}</p>
-      <Link href={`/products/${product.id}/edit`}>상품 수정</Link>
+      <Link href={`/products/${product.id}`}>← 상품 상세로</Link>
+      <h1>상품 수정</h1>
+      <EditProductForm product={product} />
     </main>
   );
 }
