@@ -107,6 +107,21 @@ npm run start
 - app/products/[id]/edit/actions.ts: 상품 수정 서버 함수
 - app/products/[id]/DeleteProductButton.tsx: 삭제 확인 버튼
 - app/products/[id]/delete-actions.ts: 상품 삭제 서버 함수
+- components/ProductFormField.tsx: 등록·수정 공통 입력란
+- components/ProductFormField.module.css: 입력란·도움말·오류 스타일
+- types/product-form.ts: 공통 폼 입력값·오류·상태 타입
+- styles/ProductForm.module.css: 등록·수정 공통 폼 스타일
+
+## 상품 폼 구성
+
+등록·수정 화면에서 ProductFormField를 공유합니다.
+
+- 부모 폼은 useActionState로 처리 결과와 pending 상태를 관리합니다.
+- 공통 입력란은 props로 입력값, 처리 중 상태, 오류를 전달받습니다.
+- 입력 중인 값은 브라우저의 입력란이 보관하고, 제출 시 FormData로 전달합니다.
+- 입력란의 name은 keyof ProductFormValues로 제한하여 오타를 방지합니다.
+- 처리 중 입력란은 readOnly, 제출 버튼은 disabled를 적용합니다.
+- 도움말과 입력 오류는 aria-describedby로 입력란에 연결합니다.
 
 ## API 연결 방식
 
