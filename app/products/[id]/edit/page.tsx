@@ -1,8 +1,8 @@
+import styles from "@/styles/ProductForm.module.css";
 import type { Product } from "@/types/product";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import EditProductForm from "./EditProductForm";
-import styles from "./page.module.css";
 
 type EditProductPageProps = {
   params: Promise<{ id: string }>;

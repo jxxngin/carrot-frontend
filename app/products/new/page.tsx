@@ -1,11 +1,11 @@
 "use client";
 
 import ProductFormField from "@/components/ProductFormField";
+import styles from "@/styles/ProductForm.module.css";
 import Link from "next/link";
 import { useActionState } from "react";
 import type { CreateProductState } from "./action-state";
 import { createProduct } from "./actions";
-import styles from "./page.module.css";
 
 const initialState: CreateProductState = {
   message: "",

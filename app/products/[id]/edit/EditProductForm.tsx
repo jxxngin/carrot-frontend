@@ -1,11 +1,11 @@
 "use client";
 
 import ProductFormField from "@/components/ProductFormField";
+import styles from "@/styles/ProductForm.module.css";
 import { Product } from "@/types/product";
 import { useActionState } from "react";
 import { updateProduct } from "./action";
 import type { UpdateProductState } from "./action-state";
-import styles from "./page.module.css";
 
 type EditProductFormProps = {
   product: Product;
