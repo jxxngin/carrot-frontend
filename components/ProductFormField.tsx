@@ -1,7 +1,8 @@
+import type { ProductFormValues } from "@/types/product-form";
 import styles from "./ProductFormField.module.css";
 
 type ProductFormFieldProps = {
-  name: string;
+  name: keyof ProductFormValues;
   label: string;
   defaultValue: string;
   pending: boolean;
