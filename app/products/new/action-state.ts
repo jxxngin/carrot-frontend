@@ -1,12 +1,3 @@
-export type CreateProductState = {
-  message: string;
-  errors: {
-    field: string;
-    message: string;
-  }[];
-  values: {
-    title: string;
-    price: string;
-    location: string;
-  };
-};
+import type { ProductFormState } from "@/types/product-form";
+
+export type CreateProductState = ProductFormState;

@@ -1,5 +1,6 @@
 "use client";
 
+import ProductFormField from "@/components/ProductFormField";
 import { Product } from "@/types/product";
 import { useActionState } from "react";
 import { updateProduct } from "./action";
@@ -31,66 +32,34 @@ export default function EditProductForm({ product }: EditProductFormProps) {
 
   return (
     <form action={formAction} className={styles.form}>
-      <div className={styles.field}>
-        <label htmlFor="title">제목</label>
-        <input
-          id="title"
-          name="title"
-          type="text"
-          defaultValue={state.values.title}
-          readOnly={pending}
-          aria-invalid={Boolean(titleError)}
-          aria-describedby={titleError ? "title-error" : undefined}
-          required
-        />
-        {titleError && (
-          <p id="title-error" className={styles.error}>
-            {titleError}
-          </p>
-        )}
-      </div>
+      <ProductFormField
+        name="title"
+        label="제목"
+        defaultValue={state.values.title}
+        pending={pending}
+        error={titleError}
+      />
 
-      <div className={styles.field}>
-        <label htmlFor="price">가격</label>
-        <input
-          id="price"
-          name="price"
-          type="number"
-          min="0"
-          max="2147483647"
-          step="1"
-          defaultValue={state.values.price}
-          readOnly={pending}
-          aria-invalid={Boolean(priceError)}
-          aria-describedby={priceError ? "price-help price-error" : "price-help"}
-          required
-        />
-        <small id="price-help">나눔은 0원을 입력해주세요.</small>
-        {priceError && (
-          <p id="price-error" className={styles.error}>
-            {priceError}
-          </p>
-        )}
-      </div>
+      <ProductFormField
+        name="price"
+        label="가격"
+        type="number"
+        min={0}
+        max={2147483647}
+        step={1}
+        defaultValue={state.values.price}
+        pending={pending}
+        error={priceError}
+        helpText="나눔은 0원을 입력해주세요."
+      />
 
-      <div className={styles.field}>
-        <label htmlFor="location">거래 지역</label>
-        <input
-          id="location"
-          name="location"
-          type="text"
-          defaultValue={state.values.location}
-          readOnly={pending}
-          aria-invalid={Boolean(locationError)}
-          aria-describedby={locationError ? "location-error" : undefined}
-          required
-        />
-        {locationError && (
-          <p id="location-error" className={styles.error}>
-            {locationError}
-          </p>
-        )}
-      </div>
+      <ProductFormField
+        name="location"
+        label="거래 지역"
+        defaultValue={state.values.location}
+        pending={pending}
+        error={locationError}
+      />
 
       <p role="status" className={styles.error}>
         {state.message}

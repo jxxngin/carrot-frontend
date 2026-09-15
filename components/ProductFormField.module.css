@@ -1,0 +1,38 @@
+.field {
+  display: grid;
+  gap: 8px;
+}
+
+.field label {
+  font-weight: 600;
+}
+
+.field input {
+  width: 100%;
+  min-width: 0;
+  padding: 12px;
+  border: 1px solid #9ca3af;
+  border-radius: 8px;
+  background: white;
+  color: #212124;
+  font: inherit;
+}
+
+.field input:focus-visible {
+  outline: 2px solid #c94a12;
+  outline-offset: 2px;
+}
+
+.field input[aria-invalid="true"] {
+  border-color: #b42318;
+}
+
+.error {
+  margin: 0;
+  color: #b42318;
+  font-size: 14px;
+}
+
+.field small {
+  color: #606770;
+}
