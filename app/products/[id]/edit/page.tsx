@@ -6,10 +6,17 @@ import EditProductForm from "./EditProductForm";
 
 type EditProductPageProps = {
   params: Promise<{ id: string }>;
+  searchParams: Promise<{
+    keyword?: string | string[];
+  }>;
 };
 
-export default async function EditProductPage({ params }: EditProductPageProps) {
+export default async function EditProductPage({ params, searchParams }: EditProductPageProps) {
   const { id } = await params;
+  const query = await searchParams;
+
+  const rawKeyword = query.keyword;
+  const keyword = (Array.isArray(rawKeyword) ? rawKeyword[0] : (rawKeyword ?? "")).trim();
 
   if (!/^[1-9]\d*$/.test(id)) {
     notFound();
@@ -37,9 +44,16 @@ export default async function EditProductPage({ params }: EditProductPageProps) 
 
   return (
     <main className={styles.main}>
-      <Link href={`/products/${product.id}`}>← 상품 상세로</Link>
+      <Link
+        href={{
+          pathname: `/products/${product.id}`,
+          query: keyword ? { keyword } : {},
+        }}
+      >
+        ← 상품 상세로
+      </Link>
       <h1>상품 수정</h1>
-      <EditProductForm product={product} />
+      <EditProductForm product={product} keyword={keyword} />
     </main>
   );
 }

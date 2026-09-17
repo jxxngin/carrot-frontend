@@ -6,6 +6,7 @@ import type { UpdateProductState } from "./action-state";
 
 export async function updateProduct(
   productId: number,
+  keyword: string,
   _previousState: UpdateProductState,
   formData: FormData,
 ): Promise<UpdateProductState> {
@@ -100,5 +101,16 @@ export async function updateProduct(
   revalidatePath("/");
   revalidatePath(`/products/${productId}`);
   revalidatePath(`/products/${productId}/edit`);
-  redirect(`/products/${productId}`);
+
+  const query = new URLSearchParams();
+  const nomalizedKeyword = keyword.trim();
+
+  if (nomalizedKeyword) {
+    query.set("keyword", nomalizedKeyword);
+  }
+
+  const detailPath = `/products/${productId}`;
+  const queryString = query.toString();
+
+  redirect(queryString ? `${detailPath}?${queryString}` : detailPath);
 }
