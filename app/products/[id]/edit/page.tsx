@@ -1,3 +1,4 @@
+import { normalizeKeyword } from "@/lib/product-search";
 import styles from "@/styles/ProductForm.module.css";
 import type { Product } from "@/types/product";
 import Link from "next/link";
@@ -14,9 +15,7 @@ type EditProductPageProps = {
 export default async function EditProductPage({ params, searchParams }: EditProductPageProps) {
   const { id } = await params;
   const query = await searchParams;
-
-  const rawKeyword = query.keyword;
-  const keyword = (Array.isArray(rawKeyword) ? rawKeyword[0] : (rawKeyword ?? "")).trim();
+  const keyword = normalizeKeyword(query.keyword);
 
   if (!/^[1-9]\d*$/.test(id)) {
     notFound();

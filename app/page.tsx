@@ -1,4 +1,5 @@
 import ProductCard from "@/components/ProductCard";
+import { normalizeKeyword } from "@/lib/product-search";
 import actionStyles from "@/styles/ActionLink.module.css";
 import type { Product } from "@/types/product";
 import Link from "next/link";
@@ -12,8 +13,7 @@ type HomeProps = {
 
 export default async function Home({ searchParams }: HomeProps) {
   const params = await searchParams;
-  const rawKeyword = params.keyword;
-  const keyword = (Array.isArray(rawKeyword) ? rawKeyword[0] : (rawKeyword ?? "")).trim();
+  const keyword = normalizeKeyword(params.keyword);
 
   const apiBaseUrl = process.env.API_BASE_URL;
 

@@ -1,3 +1,4 @@
+import { normalizeKeyword } from "@/lib/product-search";
 import actionStyles from "@/styles/ActionLink.module.css";
 import type { Product } from "@/types/product";
 import Link from "next/link";
@@ -15,9 +16,7 @@ type ProductDetailPageProps = {
 export default async function ProductDetailPage({ params, searchParams }: ProductDetailPageProps) {
   const { id } = await params;
   const query = await searchParams;
-
-  const rawKeyword = query.keyword;
-  const keyword = (Array.isArray(rawKeyword) ? rawKeyword[0] : (rawKeyword ?? "")).trim();
+  const keyword = normalizeKeyword(query.keyword);
 
   if (!/^[1-9]\d*$/.test(id)) {
     notFound();

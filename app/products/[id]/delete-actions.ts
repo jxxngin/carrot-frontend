@@ -1,5 +1,6 @@
 "use server";
 
+import { withProductKeyword } from "@/lib/product-search";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { DeleteProductState } from "./delete-state";
@@ -41,15 +42,5 @@ export async function deleteProduct(
   revalidatePath("/");
   revalidatePath(`/products/${productId}`);
   revalidatePath(`/products/${productId}/edit`);
-
-  const query = new URLSearchParams();
-  const normalizedKeyword = keyword.trim();
-
-  if (normalizedKeyword) {
-    query.set("keyword", normalizedKeyword);
-  }
-
-  const queryString = query.toString();
-
-  redirect(queryString ? `/?${queryString}` : "/");
+  redirect(withProductKeyword("/", keyword));
 }

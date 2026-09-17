@@ -1,5 +1,6 @@
 "use server";
 
+import { withProductKeyword } from "@/lib/product-search";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import type { UpdateProductState } from "./action-state";
@@ -101,16 +102,5 @@ export async function updateProduct(
   revalidatePath("/");
   revalidatePath(`/products/${productId}`);
   revalidatePath(`/products/${productId}/edit`);
-
-  const query = new URLSearchParams();
-  const nomalizedKeyword = keyword.trim();
-
-  if (nomalizedKeyword) {
-    query.set("keyword", nomalizedKeyword);
-  }
-
-  const detailPath = `/products/${productId}`;
-  const queryString = query.toString();
-
-  redirect(queryString ? `${detailPath}?${queryString}` : detailPath);
+  redirect(withProductKeyword(`/products/${productId}`, keyword));
 }
