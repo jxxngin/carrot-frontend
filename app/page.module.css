@@ -90,3 +90,48 @@
   outline: 3px solid #c94a12;
   outline-offset: 3px;
 }
+
+.searchForm {
+  display: grid;
+  gap: 8px;
+  margin-bottom: 28px;
+}
+
+.searchForm label {
+  font-weight: 600;
+}
+
+.searchControls {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.searchControls input {
+  flex: 1 1 180px;
+  min-width: 0;
+  padding: 12px;
+  border: 1px solid #9ca3af;
+  border-radius: 8px;
+  background: white;
+  color: #212124;
+  font: inherit;
+}
+
+.searchControls button {
+  padding: 12px 20px;
+  border: none;
+  border-radius: 8px;
+  background: #c94a12;
+  color: white;
+  font: inherit;
+  cursor: pointer;
+}
+
+.searchControls input:focus-visible,
+.searchControls button:focus-visible,
+.searchControls a:focus-visible {
+  outline: 3px solid #c94a12;
+  outline-offset: 3px;
+}
