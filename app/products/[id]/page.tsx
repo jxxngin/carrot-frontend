@@ -1,3 +1,4 @@
+import actionStyles from "@/styles/ActionLink.module.css";
 import type { Product } from "@/types/product";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -60,6 +61,7 @@ export default async function ProductDetailPage({ params, searchParams }: Produc
           pathname: `/products/${product.id}/edit`,
           query: keyword ? { keyword } : {},
         }}
+        className={actionStyles.secondary}
       >
         상품 수정
       </Link>

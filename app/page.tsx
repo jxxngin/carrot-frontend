@@ -1,4 +1,5 @@
 import ProductCard from "@/components/ProductCard";
+import actionStyles from "@/styles/ActionLink.module.css";
 import type { Product } from "@/types/product";
 import Link from "next/link";
 import styles from "./page.module.css";
@@ -59,7 +60,9 @@ export default async function Home({ searchParams }: HomeProps) {
               placeholder="예: 키보드"
             />
             <button type="submit">검색</button>
-            <Link href="/">전체 보기</Link>
+            <Link href="/" className={actionStyles.secondary}>
+              전체 보기
+            </Link>
           </div>
         </form>
 
@@ -68,7 +71,9 @@ export default async function Home({ searchParams }: HomeProps) {
           <p>
             {keyword ? `"${keyword}" 검색 결과` : "전체 상품"} · 총 {products.length}개
           </p>
-          <Link href="/products/new">상품 등록</Link>
+          <Link href="/products/new" className={actionStyles.primary}>
+            + 상품 등록
+          </Link>
         </div>
 
         {products.length === 0 ? (
