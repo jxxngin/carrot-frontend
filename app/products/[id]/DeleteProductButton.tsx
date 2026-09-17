@@ -7,14 +7,15 @@ import styles from "./DeleteProductButton.module.css";
 
 type DeleteProductButtonProps = {
   productId: number;
+  keyword: string;
 };
 
 const initialState: DeleteProductState = {
   message: "",
 };
 
-export default function DeleteProductButton({ productId }: DeleteProductButtonProps) {
-  const deleteProductWithId = deleteProduct.bind(null, productId);
+export default function DeleteProductButton({ productId, keyword }: DeleteProductButtonProps) {
+  const deleteProductWithId = deleteProduct.bind(null, productId, keyword);
 
   const [state, formAction, pending] = useActionState(deleteProductWithId, initialState);
 

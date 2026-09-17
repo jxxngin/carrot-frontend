@@ -65,7 +65,7 @@ export default async function ProductDetailPage({ params, searchParams }: Produc
       >
         상품 수정
       </Link>
-      <DeleteProductButton productId={product.id} />
+      <DeleteProductButton productId={product.id} keyword={keyword} />
     </main>
   );
 }

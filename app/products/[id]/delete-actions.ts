@@ -4,7 +4,10 @@ import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { DeleteProductState } from "./delete-state";
 
-export async function deleteProduct(productId: number): Promise<DeleteProductState> {
+export async function deleteProduct(
+  productId: number,
+  keyword: string,
+): Promise<DeleteProductState> {
   if (!Number.isSafeInteger(productId) || productId <= 0) {
     return {
       message: "유효하지 않은 상품 ID입니다.",
@@ -38,5 +41,15 @@ export async function deleteProduct(productId: number): Promise<DeleteProductSta
   revalidatePath("/");
   revalidatePath(`/products/${productId}`);
   revalidatePath(`/products/${productId}/edit`);
-  redirect("/");
+
+  const query = new URLSearchParams();
+  const normalizedKeyword = keyword.trim();
+
+  if (normalizedKeyword) {
+    query.set("keyword", normalizedKeyword);
+  }
+
+  const queryString = query.toString();
+
+  redirect(queryString ? `/?${queryString}` : "/");
 }
