@@ -78,7 +78,7 @@ export default async function Home({ searchParams }: HomeProps) {
         ) : (
           <div className={styles.grid}>
             {products.map((product) => (
-              <ProductCard key={product.id} product={product} />
+              <ProductCard key={product.id} product={product} keyword={keyword} />
             ))}
           </div>
         )}

@@ -4,11 +4,18 @@ import styles from "./ProductCard.module.css";
 
 type ProductCardProps = {
   product: Product;
+  keyword?: string;
 };
 
-export default function ProductCard({ product }: ProductCardProps) {
+export default function ProductCard({ product, keyword = "" }: ProductCardProps) {
   return (
-    <Link href={`/products/${product.id}`} className={styles.link}>
+    <Link
+      href={{
+        pathname: `/products/${product.id}`,
+        query: keyword ? { keyword } : {},
+      }}
+      className={styles.link}
+    >
       <article className={styles.card}>
         <p className={styles.location}>{product.location}</p>
         <h2 className={styles.title}>{product.title}</h2>

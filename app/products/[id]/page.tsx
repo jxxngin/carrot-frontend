@@ -6,10 +6,17 @@ import DeleteProductButton from "./DeleteProductButton";
 
 type ProductDetailPageProps = {
   params: Promise<{ id: string }>;
+  searchParams: Promise<{
+    keyword?: string | string[];
+  }>;
 };
 
-export default async function ProductDetailPage({ params }: ProductDetailPageProps) {
+export default async function ProductDetailPage({ params, searchParams }: ProductDetailPageProps) {
   const { id } = await params;
+  const query = await searchParams;
+
+  const rawKeyword = query.keyword;
+  const keyword = (Array.isArray(rawKeyword) ? rawKeyword[0] : (rawKeyword ?? "")).trim();
 
   if (!/^[1-9]\d*$/.test(id)) {
     notFound();
@@ -37,7 +44,14 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
 
   return (
     <main className={styles.main}>
-      <Link href="/">← 상품 목록으로</Link>
+      <Link
+        href={{
+          pathname: "/",
+          query: keyword ? { keyword } : {},
+        }}
+      >
+        {keyword ? "← 검색 결과로" : "← 상품 목록으로"}
+      </Link>
       <h1>{product.title}</h1>
       <p>{product.location}</p>
       <p>{product.price === 0 ? "나눔" : `${product.price.toLocaleString("ko-KR")}원`}</p>
