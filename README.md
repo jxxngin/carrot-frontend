@@ -35,6 +35,10 @@ Java Spring Boot로 만든 Carrot Backend와 연결하여
 - 수정 실패 시 입력값 유지와 오류 안내
 - 삭제 전 확인 및 처리 중 버튼 비활성화
 - 삭제 성공 또는 이미 삭제된 상품 처리 후 목록 이동
+- URL 쿼리 파라미터 기반 상품 제목 검색
+- 검색 결과 없음과 전체 상품 없음 안내 구분
+- 상세 조회·수정·삭제 후 검색 조건 유지
+- 상품 등록·수정 링크의 버튼 스타일 적용
 
 ## 실행 방법
 
@@ -104,13 +108,15 @@ npm run start
 - app/products/new/actions.ts: 상품 등록 서버 함수
 - app/products/[id]/edit/page.tsx: 수정할 상품 조회
 - app/products/[id]/edit/EditProductForm.tsx: 상품 수정 폼
-- app/products/[id]/edit/actions.ts: 상품 수정 서버 함수
+- app/products/[id]/edit/action.ts: 상품 수정 서버 함수
 - app/products/[id]/DeleteProductButton.tsx: 삭제 확인 버튼
 - app/products/[id]/delete-actions.ts: 상품 삭제 서버 함수
 - components/ProductFormField.tsx: 등록·수정 공통 입력란
 - components/ProductFormField.module.css: 입력란·도움말·오류 스타일
 - types/product-form.ts: 공통 폼 입력값·오류·상태 타입
 - styles/ProductForm.module.css: 등록·수정 공통 폼 스타일
+- lib/product-search.ts: 검색어 정리 및 검색 조건이 포함된 URL 생성
+- styles/ActionLink.module.css: 주요 이동 링크의 공통 버튼 스타일
 
 ## 상품 폼 구성
 
@@ -162,6 +168,11 @@ API_BASE_URL은 Next.js 서버에서 사용하는 환경 변수입니다.
 - 삭제 취소 시 상품 유지
 - 삭제 성공(204) 및 이미 삭제된 상품(404)의 목록 이동
 - 일반 Chrome에서 배포용 실행으로 CRUD 흐름 확인
+- 한글·공백·특수문자 검색
+- 검색 결과 새로고침 및 새 탭 접속
+- 검색 조건을 유지한 상세 조회·수정·삭제
+- 검색 중 서버 연결 실패 후 재시도 시 검색 조건 유지
+- 배포용 실행에서 검색과 수정·삭제 연결 확인
 
 ## 향후 계획
 
