@@ -1,8 +1,9 @@
 import ProductCard from "@/components/ProductCard";
-import { normalizeKeyword, normalizePage } from "@/lib/product-search";
+import { normalizeKeyword, normalizePage, withProductKeyword } from "@/lib/product-search";
 import actionStyles from "@/styles/ActionLink.module.css";
 import type { ProductPageResponse } from "@/types/product";
 import Link from "next/link";
+import { redirect } from "next/navigation";
 import styles from "./page.module.css";
 
 type HomeProps = {
@@ -16,6 +17,14 @@ export default async function Home({ searchParams }: HomeProps) {
   const params = await searchParams;
   const keyword = normalizeKeyword(params.keyword);
   const currentPage = normalizePage(params.page);
+
+  if (params.page !== undefined) {
+    const canonicalPage = currentPage === 1 ? undefined : String(currentPage);
+
+    if (params.page !== canonicalPage) {
+      redirect(withProductKeyword("/", keyword, currentPage));
+    }
+  }
 
   const apiBaseUrl = process.env.API_BASE_URL;
 
