@@ -1,4 +1,4 @@
-import { normalizeKeyword } from "@/lib/product-search";
+import { normalizeKeyword, normalizePage, withProductKeyword } from "@/lib/product-search";
 import actionStyles from "@/styles/ActionLink.module.css";
 import type { Product } from "@/types/product";
 import Link from "next/link";
@@ -10,6 +10,7 @@ type ProductDetailPageProps = {
   params: Promise<{ id: string }>;
   searchParams: Promise<{
     keyword?: string | string[];
+    page?: string | string[];
   }>;
 };
 
@@ -17,6 +18,7 @@ export default async function ProductDetailPage({ params, searchParams }: Produc
   const { id } = await params;
   const query = await searchParams;
   const keyword = normalizeKeyword(query.keyword);
+  const currentPage = normalizePage(query.page);
 
   if (!/^[1-9]\d*$/.test(id)) {
     notFound();
@@ -44,12 +46,7 @@ export default async function ProductDetailPage({ params, searchParams }: Produc
 
   return (
     <main className={styles.main}>
-      <Link
-        href={{
-          pathname: "/",
-          query: keyword ? { keyword } : {},
-        }}
-      >
+      <Link href={withProductKeyword("/", keyword, currentPage)}>
         {keyword ? "← 검색 결과로" : "← 상품 목록으로"}
       </Link>
       <h1>{product.title}</h1>

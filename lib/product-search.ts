@@ -25,16 +25,20 @@ export function normalizePage(value: string | string[] | undefined): number {
   return page;
 }
 
-export function withProductKeyword(pathname: string, keyword: string): string {
+export function withProductKeyword(pathname: string, keyword: string, page = 1): string {
+  const query = new URLSearchParams();
   const normalizedKeyword = normalizeKeyword(keyword);
+  const normalizedPage = normalizePage(String(page));
 
   if (!normalizedKeyword) {
-    return pathname;
+    query.set("keyword", normalizedKeyword);
   }
 
-  const query = new URLSearchParams({
-    keyword: normalizedKeyword,
-  });
+  if (normalizedPage > 1) {
+    query.set("page", String(normalizedPage));
+  }
 
-  return `${pathname}?${query.toString()}`;
+  const queryString = query.toString();
+
+  return queryString ? `${pathname}?${queryString}` : pathname;
 }
