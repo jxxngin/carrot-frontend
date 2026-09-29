@@ -1,3 +1,6 @@
+const MAX_API_PAGE_INDEX = 2 ** 31 - 1;
+const MAX_UI_PAGE_NUMBER = MAX_API_PAGE_INDEX + 1;
+
 export function normalizeKeyword(value: string | string[] | undefined): string {
   const keyword = Array.isArray(value) ? value[0] : value;
 
@@ -13,7 +16,11 @@ export function normalizePage(value: string | string[] | undefined): number {
 
   const page = Number(rawPage);
 
-  return Number.isSafeInteger(page) && page <= 2147483647 ? page : 1;
+  if (!Number.isSafeInteger(page) || page > MAX_UI_PAGE_NUMBER) {
+    return 1;
+  }
+
+  return page;
 }
 
 export function withProductKeyword(pathname: string, keyword: string): string {
