@@ -11,9 +11,10 @@ import type { UpdateProductState } from "./action-state";
 type EditProductFormProps = {
   product: Product;
   keyword: string;
+  page: number;
 };
 
-export default function EditProductForm({ product, keyword }: EditProductFormProps) {
+export default function EditProductForm({ product, keyword, page }: EditProductFormProps) {
   const initialState: UpdateProductState = {
     message: "",
     errors: [],
@@ -24,7 +25,7 @@ export default function EditProductForm({ product, keyword }: EditProductFormPro
     },
   };
 
-  const updateProductWithId = updateProduct.bind(null, product.id, keyword);
+  const updateProductWithId = updateProduct.bind(null, product.id, keyword, page);
 
   const [state, formAction, pending] = useActionState(updateProductWithId, initialState);
 

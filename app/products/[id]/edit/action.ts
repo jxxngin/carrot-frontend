@@ -10,6 +10,7 @@ import type { UpdateProductState } from "./action-state";
 export async function updateProduct(
   productId: number,
   keyword: string,
+  page: number,
   _previousState: UpdateProductState,
   formData: FormData,
 ): Promise<UpdateProductState> {
@@ -107,5 +108,5 @@ export async function updateProduct(
   revalidatePath("/");
   revalidatePath(`/products/${productId}`);
   revalidatePath(`/products/${productId}/edit`);
-  redirect(withProductKeyword(`/products/${productId}`, keyword));
+  redirect(withProductKeyword(`/products/${productId}`, keyword, page));
 }

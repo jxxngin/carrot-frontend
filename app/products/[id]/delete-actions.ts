@@ -8,6 +8,7 @@ import { DeleteProductState } from "./delete-state";
 export async function deleteProduct(
   productId: number,
   keyword: string,
+  page: number,
 ): Promise<DeleteProductState> {
   if (!Number.isSafeInteger(productId) || productId <= 0) {
     return {
@@ -42,5 +43,5 @@ export async function deleteProduct(
   revalidatePath("/");
   revalidatePath(`/products/${productId}`);
   revalidatePath(`/products/${productId}/edit`);
-  redirect(withProductKeyword("/", keyword));
+  redirect(withProductKeyword("/", keyword, page));
 }

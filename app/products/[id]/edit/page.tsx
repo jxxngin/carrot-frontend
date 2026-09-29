@@ -1,4 +1,4 @@
-import { normalizeKeyword } from "@/lib/product-search";
+import { normalizeKeyword, normalizePage, withProductKeyword } from "@/lib/product-search";
 import styles from "@/styles/ProductForm.module.css";
 import type { Product } from "@/types/product";
 import Link from "next/link";
@@ -9,6 +9,7 @@ type EditProductPageProps = {
   params: Promise<{ id: string }>;
   searchParams: Promise<{
     keyword?: string | string[];
+    page?: string | string[];
   }>;
 };
 
@@ -16,6 +17,7 @@ export default async function EditProductPage({ params, searchParams }: EditProd
   const { id } = await params;
   const query = await searchParams;
   const keyword = normalizeKeyword(query.keyword);
+  const currentPage = normalizePage(query.page);
 
   if (!/^[1-9]\d*$/.test(id)) {
     notFound();
@@ -43,16 +45,11 @@ export default async function EditProductPage({ params, searchParams }: EditProd
 
   return (
     <main className={styles.main}>
-      <Link
-        href={{
-          pathname: `/products/${product.id}`,
-          query: keyword ? { keyword } : {},
-        }}
-      >
+      <Link href={withProductKeyword(`/products/${product.id}`, keyword, currentPage)}>
         ← 상품 상세로
       </Link>
       <h1>상품 수정</h1>
-      <EditProductForm product={product} keyword={keyword} />
+      <EditProductForm product={product} keyword={keyword} page={currentPage} />
     </main>
   );
 }

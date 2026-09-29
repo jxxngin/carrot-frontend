@@ -53,15 +53,12 @@ export default async function ProductDetailPage({ params, searchParams }: Produc
       <p>{product.location}</p>
       <p>{product.price === 0 ? "나눔" : `${product.price.toLocaleString("ko-KR")}원`}</p>
       <Link
-        href={{
-          pathname: `/products/${product.id}/edit`,
-          query: keyword ? { keyword } : {},
-        }}
+        href={withProductKeyword(`/products/${product.id}/edit`, keyword, currentPage)}
         className={actionStyles.secondary}
       >
         상품 수정
       </Link>
-      <DeleteProductButton productId={product.id} keyword={keyword} />
+      <DeleteProductButton productId={product.id} keyword={keyword} page={currentPage} />
     </main>
   );
 }
