@@ -1,4 +1,6 @@
-const MAX_API_PAGE_INDEX = 2 ** 31 - 1;
+import { JAVA_INT_MAX } from "./number-limits";
+
+const MAX_API_PAGE_INDEX = JAVA_INT_MAX;
 const MAX_UI_PAGE_NUMBER = MAX_API_PAGE_INDEX + 1;
 
 export function normalizeKeyword(value: string | string[] | undefined): string {

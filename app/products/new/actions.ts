@@ -1,5 +1,7 @@
 "use server";
 
+import { JAVA_INT_MIN } from "@/lib/number-limits";
+import { MAX_PRODUCT_PRICE, PRODUCT_PRICE_ERROR_MESSAGE } from "@/lib/product-constraints";
 import type { Product } from "@/types/product";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
@@ -27,13 +29,16 @@ export async function createProduct(
 
   const price = values.price.trim() === "" ? null : Number(values.price);
 
-  if (price !== null && (!Number.isInteger(price) || price > 2147483647 || price < -2147483648)) {
+  if (
+    price !== null &&
+    (!Number.isInteger(price) || price > MAX_PRODUCT_PRICE || price < JAVA_INT_MIN)
+  ) {
     return {
       message: "입력값을 확인해주세요.",
       errors: [
         {
           field: "price",
-          message: "가격은 0부터 2,147,483,647까지의 정수로 입력해주세요.",
+          message: PRODUCT_PRICE_ERROR_MESSAGE,
         },
       ],
       values,

@@ -1,6 +1,7 @@
 "use client";
 
 import ProductFormField from "@/components/ProductFormField";
+import { MAX_PRODUCT_PRICE } from "@/lib/product-constraints";
 import styles from "@/styles/ProductForm.module.css";
 import { Product } from "@/types/product";
 import { useActionState } from "react";
@@ -46,7 +47,7 @@ export default function EditProductForm({ product, keyword }: EditProductFormPro
         label="가격"
         type="number"
         min={0}
-        max={2147483647}
+        max={MAX_PRODUCT_PRICE}
         step={1}
         defaultValue={state.values.price}
         pending={pending}
